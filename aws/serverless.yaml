@@ -1,0 +1,47 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Simple API Gateway and SAM Cloudformation
+
+Resources:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors: "'*'"
+
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/api-gateway-example_latest.zip
+      Handler: src/index.handler
+      MemorySize: 1024
+      Runtime: nodejs10.x
+      Events:
+        Root:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /
+            Method: GET
+            # NOTE: This endpoint is publicly accessible
+            Auth:
+              Authorizer: NONE
+        ProxyAny:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /{proxy+}
+            Method: ANY
+            # NOTE: This endpoint is publicly accessible
+            Auth:
+              Authorizer: NONE
+
+Outputs:
+  ApiId:
+    Description: "API ID"
+    Value: !Ref MyApi
+
+  ApiUrl:
+    Description: "API endpoint URL for Prod environment"
+    Value: !Sub 'https://${MyApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/'

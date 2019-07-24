@@ -1,0 +1,4 @@
+aws
+.idea
+dist
+api-gateway-example*.tgz
