@@ -11,7 +11,9 @@ Resources:
         Ref: AWS::StackName
       RestartExecutionOnUpdate: false
       RoleArn:
-        Ref: CodePipelineRole
+        Fn::GetAtt:
+          - CodePipelineRole
+          - Arn
       Stages:
         - Name: Source
           Actions:
@@ -63,7 +65,9 @@ Resources:
                 Capabilities: CAPABILITY_IAM
                 TemplatePath: PostBuildOutput::serverless.packaged.yml
                 RoleArn:
-                  Ref: CloudformationDeploymentRole
+                  Fn::GetAtt:
+                    - CloudformationDeploymentRole
+                    - Arn
                 StackName:
                   Fn::Join:
                     - "-"
@@ -73,7 +77,6 @@ Resources:
                 ParameterOverrides:
                   Fn::Sub:
                     '{
-                  "ExistingResourcesStack":"${ProductionExistingResourcesStack}",
                   "NodeEnvironment":"production"
                 }'
               OutputArtifacts: []
@@ -142,7 +145,7 @@ Resources:
             Value:
               Ref: AWS::StackName
           - Name: S3_BUCKET_NAME
-            value:
+            Value:
               Ref: S3BuildBucket
       ServiceRole:
         Ref: CodeBuildProjectRole
@@ -434,11 +437,11 @@ Parameters:
   GitHubOwner:
     Description: Name of organization for the repo (e.x. actionably)
     Type: String
-    Default: actionably
+    Default: itozapata
   GitHubRepo:
     Description: Name of the github repo (e.x. bot-analytics-tracker
     Type: String
-    Default: lambda-supportbot-app
+    Default: api-gateway-example
   GitHubBranch:
     Description: branch to build
     Type: String
@@ -453,20 +456,4 @@ Parameters:
     AllowedValues:
       - aws/codebuild/standard:1.0
     Default: aws/codebuild/standard:1.0
-  ProductionExistingResourcesStack:
-    Description: Name of the production existing resources stack see the dasbhbot-infrastructure
-      project there needs to be a stack with this name existing in your region
-    Type: String
-    AllowedValues:
-      - production-existing-resources
-      - testing-existing-resources
-    Default: production-existing-resources
-  StagingExistingResourcesStack:
-    Description: Name of the production existing resources stack see the dasbhbot-infrastructure
-      project there needs to be a stack with this name existing in your region
-    Type: String
-    AllowedValues:
-      - staging-existing-resources
-      - testing-existing-resources
-    Default: staging-existing-resources
 Outputs: {}
