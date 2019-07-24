@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "npm pack",
     "postpackage": "mkdir -p ./dist && tar -tf $npm_package_name-$npm_package_version.tgz | sed s/^package\\\\/// | zip -@rq dist/${npm_package_name}_latest.zip && rm $npm_package_name-$npm_package_version.tgz",
-    "aws-package": "aws cloudformation package --template-file ./aws/serverless.yaml --output-template-file ./dist/serverless.packaged.yaml --s3-bucket $S3_BUCKET_NAME",
+    "stage": "aws cloudformation package --template-file ./aws/serverless.yaml --output-template-file ./dist/serverless.packaged.yaml --s3-bucket $S3_BUCKET_NAME --s3-prefix $npm_package_name",
     "package-windows": "npm pack",
     "postpackage-windows": "echo 'not sure'",
     "aws-package-windows": "aws cloudformation package --template-file ./aws/serverless.yaml --output-template-file ./dist/serverless.packaged.yaml --s3-bucket %S3_BUCKET_NAME%"

@@ -1,0 +1,14 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run package
+      - npm run stage
+artifacts:
+  type: zip
+  files:
+    - ./dist/serverless.packaged.yml
+  discard-paths: yes
