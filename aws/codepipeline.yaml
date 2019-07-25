@@ -74,11 +74,11 @@ Resources:
                     - - production
                       - Ref: AWS::StackName
                       - deployment
-                ParameterOverrides:
-                  Fn::Sub:
-                    '{
-                  "NodeEnvironment":"production"
-                }'
+#                ParameterOverrides:
+#                  Fn::Sub:
+#                    '{
+#                  "NodeEnvironment":"production"
+#                }'
               OutputArtifacts: []
         - Name: Approval
           Actions:
