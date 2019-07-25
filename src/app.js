@@ -1,19 +1,20 @@
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "cors";
-import awsServerlessMiddleware from "aws-serverless-express/middleware";
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const awsServerlessMiddleware = ("aws-serverless-express/middleware");
 
 const app = express();
 const router = express.Router();
 
+router.use(cors());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(awsServerlessMiddleware.eventContext());
 
-router.get("/", (reqm, res) => {
+router.get("/", (req, res) => {
   return res.json({ hello: "world" });
 });
 
 app.use("/", router);
 
-export default app;
+module.exports = app;

@@ -80,17 +80,17 @@ Resources:
 #                  "NodeEnvironment":"production"
 #                }'
               OutputArtifacts: []
-        - Name: Approval
-          Actions:
-            - Name: Approval
-              ActionTypeId:
-                Category: Approval
-                Owner: AWS
-                Version: '1'
-                Provider: Manual
-              InputArtifacts: []
-              OutputArtifacts: []
-              Configuration: {}
+#        - Name: Approval
+#          Actions:
+#            - Name: Approval
+#              ActionTypeId:
+#                Category: Approval
+#                Owner: AWS
+#                Version: '1'
+#                Provider: Manual
+#              InputArtifacts: []
+#              OutputArtifacts: []
+#              Configuration: {}
         - Name: Deploy
           Actions:
             - Name: deploy-cloud-formation
