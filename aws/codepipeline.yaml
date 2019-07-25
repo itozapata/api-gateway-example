@@ -63,7 +63,7 @@ Resources:
                 ActionMode: CHANGE_SET_REPLACE
                 ChangeSetName: codepipeline-generated-changeset
                 Capabilities: CAPABILITY_IAM
-                TemplatePath: PostBuildOutput::serverless.packaged.yml
+                TemplatePath: PostBuildOutput::serverless.packaged.yaml
                 RoleArn:
                   Fn::GetAtt:
                     - CloudformationDeploymentRole
@@ -215,13 +215,13 @@ Resources:
               - Effect: Allow
                 Action:
                   - s3:PutObject
+                  - s3:GetObject
+                  - s3:GetObjectVersion
+                  - s3:PutObject
                 Resource:
                   - Fn::Join:
                       - ''
-                      - - arn:aws:s3:::lambda-builds-
-                        - Ref: AWS::Region
-                        - "-"
-                        - Ref: AWS::AccountId
+                      - - !GetAtt S3BuildBucket.Arn
                         - "/"
                         - "*"
                         - "/*"
