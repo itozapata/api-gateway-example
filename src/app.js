@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const awsServerlessMiddleware = ("aws-serverless-express/middleware");
+const awsServerlessMiddleware = require("aws-serverless-express/middleware");
 
 const app = express();
 const router = express.Router();
