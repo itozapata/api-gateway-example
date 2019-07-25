@@ -24,18 +24,12 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /
             Method: GET
-            # NOTE: This endpoint is publicly accessible
-            Auth:
-              Authorizer: NONE
         ProxyAny:
           Type: Api
           Properties:
             RestApiId: !Ref MyApi
             Path: /{proxy+}
             Method: ANY
-            # NOTE: This endpoint is publicly accessible
-            Auth:
-              Authorizer: NONE
 
 Outputs:
   ApiId:
