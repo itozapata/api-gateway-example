@@ -24,6 +24,12 @@ Resources:
             RestApiId: !Ref MyApi
             Path: /
             Method: GET
+        User:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /user
+            Method: GET
         ProxyAny:
           Type: Api
           Properties:

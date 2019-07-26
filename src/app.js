@@ -15,6 +15,10 @@ router.get("/", (req, res) => {
   return res.json({ hello: "world" });
 });
 
+router.get("/user", (req, res) => {
+  return res.json({ name: "ito" });
+});
+
 app.use("/", router);
 
 module.exports = app;
